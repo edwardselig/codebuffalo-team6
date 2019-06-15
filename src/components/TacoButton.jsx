@@ -5,6 +5,6 @@ const style = {
     margin: 12
 };
 
-const TacoButton = () => <img src={taco} />;
+const TacoButton = () => <img className="centerTaco" src={taco} />;
 
-export default RaisedButtonExampleSimple;
+export default TacoButton;

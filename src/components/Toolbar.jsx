@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import ActivityChooser from './ActivityChooser';
-import RaisedButtonExampleSimple from './ActivityButton.jsx';
 
 function TabContainer(props) {
     return (
@@ -32,14 +31,14 @@ export default function ScrollableTabsButtonPrevent() {
 
     return (
         <div>
-            <div id="content">
+            <div className="content">
                 {value === 0 && <TabContainer>Item One</TabContainer>}
                 {value === 1 && (
                     <TabContainer>
                         <ActivityChooser />
                     </TabContainer>
                 )}
-                {value === 2 && <TabContainer>poop</TabContainer>}
+                {value === 2 && <TabContainer></TabContainer>}
             </div>
             <div className="toolbar">
                 <AppBar position="static">
