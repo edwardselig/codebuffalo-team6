@@ -14,10 +14,8 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
   U[keyof U];
 
 export interface Exists {
-  blog: (where?: BlogWhereInput) => Promise<boolean>;
-  link: (where?: LinkWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
-  vote: (where?: VoteWhereInput) => Promise<boolean>;
+  activities: (where?: activitiesWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -39,44 +37,6 @@ export interface Prisma {
    * Queries
    */
 
-  blog: (where: BlogWhereUniqueInput) => BlogPromise;
-  blogs: (args?: {
-    where?: BlogWhereInput;
-    orderBy?: BlogOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<Blog>;
-  blogsConnection: (args?: {
-    where?: BlogWhereInput;
-    orderBy?: BlogOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => BlogConnectionPromise;
-  link: (where: LinkWhereUniqueInput) => LinkPromise;
-  links: (args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<Link>;
-  linksConnection: (args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => LinkConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserPromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -96,63 +56,31 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => UserConnectionPromise;
-  vote: (where: VoteWhereUniqueInput) => VotePromise;
-  votes: (args?: {
-    where?: VoteWhereInput;
-    orderBy?: VoteOrderByInput;
+  activities: (where: activitiesWhereUniqueInput) => activitiesPromise;
+  activitieses: (args?: {
+    where?: activitiesWhereInput;
+    orderBy?: activitiesOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Vote>;
-  votesConnection: (args?: {
-    where?: VoteWhereInput;
-    orderBy?: VoteOrderByInput;
+  }) => FragmentableArray<activities>;
+  activitiesesConnection: (args?: {
+    where?: activitiesWhereInput;
+    orderBy?: activitiesOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => VoteConnectionPromise;
+  }) => activitiesConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
    * Mutations
    */
 
-  createBlog: (data: BlogCreateInput) => BlogPromise;
-  updateBlog: (args: {
-    data: BlogUpdateInput;
-    where: BlogWhereUniqueInput;
-  }) => BlogPromise;
-  updateManyBlogs: (args: {
-    data: BlogUpdateManyMutationInput;
-    where?: BlogWhereInput;
-  }) => BatchPayloadPromise;
-  upsertBlog: (args: {
-    where: BlogWhereUniqueInput;
-    create: BlogCreateInput;
-    update: BlogUpdateInput;
-  }) => BlogPromise;
-  deleteBlog: (where: BlogWhereUniqueInput) => BlogPromise;
-  deleteManyBlogs: (where?: BlogWhereInput) => BatchPayloadPromise;
-  createLink: (data: LinkCreateInput) => LinkPromise;
-  updateLink: (args: {
-    data: LinkUpdateInput;
-    where: LinkWhereUniqueInput;
-  }) => LinkPromise;
-  updateManyLinks: (args: {
-    data: LinkUpdateManyMutationInput;
-    where?: LinkWhereInput;
-  }) => BatchPayloadPromise;
-  upsertLink: (args: {
-    where: LinkWhereUniqueInput;
-    create: LinkCreateInput;
-    update: LinkUpdateInput;
-  }) => LinkPromise;
-  deleteLink: (where: LinkWhereUniqueInput) => LinkPromise;
-  deleteManyLinks: (where?: LinkWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -169,18 +97,22 @@ export interface Prisma {
   }) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
-  createVote: (data: VoteCreateInput) => VotePromise;
-  updateVote: (args: {
-    data: VoteUpdateInput;
-    where: VoteWhereUniqueInput;
-  }) => VotePromise;
-  upsertVote: (args: {
-    where: VoteWhereUniqueInput;
-    create: VoteCreateInput;
-    update: VoteUpdateInput;
-  }) => VotePromise;
-  deleteVote: (where: VoteWhereUniqueInput) => VotePromise;
-  deleteManyVotes: (where?: VoteWhereInput) => BatchPayloadPromise;
+  createactivities: (data: activitiesCreateInput) => activitiesPromise;
+  updateactivities: (args: {
+    data: activitiesUpdateInput;
+    where: activitiesWhereUniqueInput;
+  }) => activitiesPromise;
+  updateManyactivitieses: (args: {
+    data: activitiesUpdateManyMutationInput;
+    where?: activitiesWhereInput;
+  }) => BatchPayloadPromise;
+  upsertactivities: (args: {
+    where: activitiesWhereUniqueInput;
+    create: activitiesCreateInput;
+    update: activitiesUpdateInput;
+  }) => activitiesPromise;
+  deleteactivities: (where: activitiesWhereUniqueInput) => activitiesPromise;
+  deleteManyactivitieses: (where?: activitiesWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -190,18 +122,12 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  blog: (
-    where?: BlogSubscriptionWhereInput
-  ) => BlogSubscriptionPayloadSubscription;
-  link: (
-    where?: LinkSubscriptionWhereInput
-  ) => LinkSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
-  vote: (
-    where?: VoteSubscriptionWhereInput
-  ) => VoteSubscriptionPayloadSubscription;
+  activities: (
+    where?: activitiesSubscriptionWhereInput
+  ) => activitiesSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -212,89 +138,37 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type BlogOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "text_ASC"
-  | "text_DESC";
-
-export type LinkOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "description_ASC"
-  | "description_DESC"
-  | "url_ASC"
-  | "url_DESC";
-
-export type VoteOrderByInput = "id_ASC" | "id_DESC";
-
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
   | "email_ASC"
-  | "email_DESC"
-  | "password_ASC"
-  | "password_DESC";
+  | "email_DESC";
+
+export type activitiesOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "rating_ASC"
+  | "rating_DESC"
+  | "comments_ASC"
+  | "comments_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserCreateOneWithoutVotesInput {
-  create?: UserCreateWithoutVotesInput;
-  connect?: UserWhereUniqueInput;
+export interface activitiesCreateInput {
+  id?: ID_Input;
+  rating?: Int;
+  comments: String;
 }
 
-export type BlogWhereUniqueInput = AtLeastOne<{
+export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface BlogUpdateManyMutationInput {
-  title?: String;
-  text?: String;
-}
-
-export interface VoteUpdateWithWhereUniqueWithoutLinkInput {
-  where: VoteWhereUniqueInput;
-  data: VoteUpdateWithoutLinkDataInput;
-}
-
-export interface LinkUpdateManyWithoutPostedByInput {
-  create?: LinkCreateWithoutPostedByInput[] | LinkCreateWithoutPostedByInput;
-  delete?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-  connect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-  set?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-  disconnect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-  update?:
-    | LinkUpdateWithWhereUniqueWithoutPostedByInput[]
-    | LinkUpdateWithWhereUniqueWithoutPostedByInput;
-  upsert?:
-    | LinkUpsertWithWhereUniqueWithoutPostedByInput[]
-    | LinkUpsertWithWhereUniqueWithoutPostedByInput;
-  deleteMany?: LinkScalarWhereInput[] | LinkScalarWhereInput;
-  updateMany?:
-    | LinkUpdateManyWithWhereNestedInput[]
-    | LinkUpdateManyWithWhereNestedInput;
-}
-
-export interface LinkCreateWithoutPostedByInput {
-  id?: ID_Input;
-  description: String;
-  url: String;
-  votes?: VoteCreateManyWithoutLinkInput;
-}
-
-export interface UserUpdateWithoutVotesDataInput {
+export interface UserUpdateInput {
   name?: String;
   email?: String;
-  password?: String;
-  links?: LinkUpdateManyWithoutPostedByInput;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -307,511 +181,6 @@ export interface UserSubscriptionWhereInput {
   OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
   NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
 }
-
-export interface LinkCreateInput {
-  id?: ID_Input;
-  description: String;
-  url: String;
-  postedBy?: UserCreateOneWithoutLinksInput;
-  votes?: VoteCreateManyWithoutLinkInput;
-}
-
-export interface BlogSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: BlogWhereInput;
-  AND?: BlogSubscriptionWhereInput[] | BlogSubscriptionWhereInput;
-  OR?: BlogSubscriptionWhereInput[] | BlogSubscriptionWhereInput;
-  NOT?: BlogSubscriptionWhereInput[] | BlogSubscriptionWhereInput;
-}
-
-export interface UserCreateOneWithoutLinksInput {
-  create?: UserCreateWithoutLinksInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface VoteUpdateInput {
-  link?: LinkUpdateOneRequiredWithoutVotesInput;
-  user?: UserUpdateOneRequiredWithoutVotesInput;
-}
-
-export interface UserCreateWithoutLinksInput {
-  id?: ID_Input;
-  name: String;
-  email: String;
-  password: String;
-  votes?: VoteCreateManyWithoutUserInput;
-}
-
-export interface LinkWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  url?: String;
-  url_not?: String;
-  url_in?: String[] | String;
-  url_not_in?: String[] | String;
-  url_lt?: String;
-  url_lte?: String;
-  url_gt?: String;
-  url_gte?: String;
-  url_contains?: String;
-  url_not_contains?: String;
-  url_starts_with?: String;
-  url_not_starts_with?: String;
-  url_ends_with?: String;
-  url_not_ends_with?: String;
-  postedBy?: UserWhereInput;
-  votes_every?: VoteWhereInput;
-  votes_some?: VoteWhereInput;
-  votes_none?: VoteWhereInput;
-  AND?: LinkWhereInput[] | LinkWhereInput;
-  OR?: LinkWhereInput[] | LinkWhereInput;
-  NOT?: LinkWhereInput[] | LinkWhereInput;
-}
-
-export interface VoteCreateManyWithoutUserInput {
-  create?: VoteCreateWithoutUserInput[] | VoteCreateWithoutUserInput;
-  connect?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-}
-
-export interface VoteWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  link?: LinkWhereInput;
-  user?: UserWhereInput;
-  AND?: VoteWhereInput[] | VoteWhereInput;
-  OR?: VoteWhereInput[] | VoteWhereInput;
-  NOT?: VoteWhereInput[] | VoteWhereInput;
-}
-
-export interface VoteCreateWithoutUserInput {
-  id?: ID_Input;
-  link: LinkCreateOneWithoutVotesInput;
-}
-
-export interface UserUpdateManyMutationInput {
-  name?: String;
-  email?: String;
-  password?: String;
-}
-
-export interface LinkCreateOneWithoutVotesInput {
-  create?: LinkCreateWithoutVotesInput;
-  connect?: LinkWhereUniqueInput;
-}
-
-export interface UserCreateInput {
-  id?: ID_Input;
-  name: String;
-  email: String;
-  password: String;
-  links?: LinkCreateManyWithoutPostedByInput;
-  votes?: VoteCreateManyWithoutUserInput;
-}
-
-export interface LinkCreateWithoutVotesInput {
-  id?: ID_Input;
-  description: String;
-  url: String;
-  postedBy?: UserCreateOneWithoutLinksInput;
-}
-
-export interface VoteUpsertWithWhereUniqueWithoutLinkInput {
-  where: VoteWhereUniqueInput;
-  update: VoteUpdateWithoutLinkDataInput;
-  create: VoteCreateWithoutLinkInput;
-}
-
-export interface VoteCreateManyWithoutLinkInput {
-  create?: VoteCreateWithoutLinkInput[] | VoteCreateWithoutLinkInput;
-  connect?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-}
-
-export interface UserUpsertWithoutVotesInput {
-  update: UserUpdateWithoutVotesDataInput;
-  create: UserCreateWithoutVotesInput;
-}
-
-export interface VoteCreateWithoutLinkInput {
-  id?: ID_Input;
-  user: UserCreateOneWithoutVotesInput;
-}
-
-export interface LinkUpdateManyWithWhereNestedInput {
-  where: LinkScalarWhereInput;
-  data: LinkUpdateManyDataInput;
-}
-
-export interface UserUpdateOneRequiredWithoutVotesInput {
-  create?: UserCreateWithoutVotesInput;
-  update?: UserUpdateWithoutVotesDataInput;
-  upsert?: UserUpsertWithoutVotesInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export type VoteWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface UserCreateWithoutVotesInput {
-  id?: ID_Input;
-  name: String;
-  email: String;
-  password: String;
-  links?: LinkCreateManyWithoutPostedByInput;
-}
-
-export interface LinkUpdateWithoutPostedByDataInput {
-  description?: String;
-  url?: String;
-  votes?: VoteUpdateManyWithoutLinkInput;
-}
-
-export interface LinkCreateManyWithoutPostedByInput {
-  create?: LinkCreateWithoutPostedByInput[] | LinkCreateWithoutPostedByInput;
-  connect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-}
-
-export interface BlogUpdateInput {
-  title?: String;
-  text?: String;
-}
-
-export interface VoteUpdateWithoutLinkDataInput {
-  user?: UserUpdateOneRequiredWithoutVotesInput;
-}
-
-export interface LinkSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: LinkWhereInput;
-  AND?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
-  OR?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
-  NOT?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
-}
-
-export interface LinkUpdateInput {
-  description?: String;
-  url?: String;
-  postedBy?: UserUpdateOneWithoutLinksInput;
-  votes?: VoteUpdateManyWithoutLinkInput;
-}
-
-export interface VoteCreateInput {
-  id?: ID_Input;
-  link: LinkCreateOneWithoutVotesInput;
-  user: UserCreateOneWithoutVotesInput;
-}
-
-export interface UserUpdateOneWithoutLinksInput {
-  create?: UserCreateWithoutLinksInput;
-  update?: UserUpdateWithoutLinksDataInput;
-  upsert?: UserUpsertWithoutLinksInput;
-  delete?: Boolean;
-  disconnect?: Boolean;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface BlogWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  text?: String;
-  text_not?: String;
-  text_in?: String[] | String;
-  text_not_in?: String[] | String;
-  text_lt?: String;
-  text_lte?: String;
-  text_gt?: String;
-  text_gte?: String;
-  text_contains?: String;
-  text_not_contains?: String;
-  text_starts_with?: String;
-  text_not_starts_with?: String;
-  text_ends_with?: String;
-  text_not_ends_with?: String;
-  AND?: BlogWhereInput[] | BlogWhereInput;
-  OR?: BlogWhereInput[] | BlogWhereInput;
-  NOT?: BlogWhereInput[] | BlogWhereInput;
-}
-
-export interface UserUpdateWithoutLinksDataInput {
-  name?: String;
-  email?: String;
-  password?: String;
-  votes?: VoteUpdateManyWithoutUserInput;
-}
-
-export interface LinkUpdateManyMutationInput {
-  description?: String;
-  url?: String;
-}
-
-export interface VoteUpdateManyWithoutUserInput {
-  create?: VoteCreateWithoutUserInput[] | VoteCreateWithoutUserInput;
-  delete?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-  connect?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-  set?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-  disconnect?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-  update?:
-    | VoteUpdateWithWhereUniqueWithoutUserInput[]
-    | VoteUpdateWithWhereUniqueWithoutUserInput;
-  upsert?:
-    | VoteUpsertWithWhereUniqueWithoutUserInput[]
-    | VoteUpsertWithWhereUniqueWithoutUserInput;
-  deleteMany?: VoteScalarWhereInput[] | VoteScalarWhereInput;
-}
-
-export interface LinkUpdateManyDataInput {
-  description?: String;
-  url?: String;
-}
-
-export interface VoteUpdateWithWhereUniqueWithoutUserInput {
-  where: VoteWhereUniqueInput;
-  data: VoteUpdateWithoutUserDataInput;
-}
-
-export interface LinkUpsertWithWhereUniqueWithoutPostedByInput {
-  where: LinkWhereUniqueInput;
-  update: LinkUpdateWithoutPostedByDataInput;
-  create: LinkCreateWithoutPostedByInput;
-}
-
-export interface VoteUpdateWithoutUserDataInput {
-  link?: LinkUpdateOneRequiredWithoutVotesInput;
-}
-
-export interface BlogCreateInput {
-  id?: ID_Input;
-  title: String;
-  text: String;
-}
-
-export interface LinkUpdateOneRequiredWithoutVotesInput {
-  create?: LinkCreateWithoutVotesInput;
-  update?: LinkUpdateWithoutVotesDataInput;
-  upsert?: LinkUpsertWithoutVotesInput;
-  connect?: LinkWhereUniqueInput;
-}
-
-export type LinkWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface LinkUpdateWithoutVotesDataInput {
-  description?: String;
-  url?: String;
-  postedBy?: UserUpdateOneWithoutLinksInput;
-}
-
-export interface UserUpdateInput {
-  name?: String;
-  email?: String;
-  password?: String;
-  links?: LinkUpdateManyWithoutPostedByInput;
-  votes?: VoteUpdateManyWithoutUserInput;
-}
-
-export interface LinkUpsertWithoutVotesInput {
-  update: LinkUpdateWithoutVotesDataInput;
-  create: LinkCreateWithoutVotesInput;
-}
-
-export interface LinkScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  url?: String;
-  url_not?: String;
-  url_in?: String[] | String;
-  url_not_in?: String[] | String;
-  url_lt?: String;
-  url_lte?: String;
-  url_gt?: String;
-  url_gte?: String;
-  url_contains?: String;
-  url_not_contains?: String;
-  url_starts_with?: String;
-  url_not_starts_with?: String;
-  url_ends_with?: String;
-  url_not_ends_with?: String;
-  AND?: LinkScalarWhereInput[] | LinkScalarWhereInput;
-  OR?: LinkScalarWhereInput[] | LinkScalarWhereInput;
-  NOT?: LinkScalarWhereInput[] | LinkScalarWhereInput;
-}
-
-export interface VoteUpdateManyWithoutLinkInput {
-  create?: VoteCreateWithoutLinkInput[] | VoteCreateWithoutLinkInput;
-  delete?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-  connect?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-  set?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-  disconnect?: VoteWhereUniqueInput[] | VoteWhereUniqueInput;
-  update?:
-    | VoteUpdateWithWhereUniqueWithoutLinkInput[]
-    | VoteUpdateWithWhereUniqueWithoutLinkInput;
-  upsert?:
-    | VoteUpsertWithWhereUniqueWithoutLinkInput[]
-    | VoteUpsertWithWhereUniqueWithoutLinkInput;
-  deleteMany?: VoteScalarWhereInput[] | VoteScalarWhereInput;
-}
-
-export interface UserUpsertWithoutLinksInput {
-  update: UserUpdateWithoutLinksDataInput;
-  create: UserCreateWithoutLinksInput;
-}
-
-export interface VoteScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  AND?: VoteScalarWhereInput[] | VoteScalarWhereInput;
-  OR?: VoteScalarWhereInput[] | VoteScalarWhereInput;
-  NOT?: VoteScalarWhereInput[] | VoteScalarWhereInput;
-}
-
-export interface VoteUpsertWithWhereUniqueWithoutUserInput {
-  where: VoteWhereUniqueInput;
-  update: VoteUpdateWithoutUserDataInput;
-  create: VoteCreateWithoutUserInput;
-}
-
-export interface LinkUpdateWithWhereUniqueWithoutPostedByInput {
-  where: LinkWhereUniqueInput;
-  data: LinkUpdateWithoutPostedByDataInput;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  email?: String;
-}>;
 
 export interface UserWhereInput {
   id?: ID_Input;
@@ -856,81 +225,197 @@ export interface UserWhereInput {
   email_not_starts_with?: String;
   email_ends_with?: String;
   email_not_ends_with?: String;
-  password?: String;
-  password_not?: String;
-  password_in?: String[] | String;
-  password_not_in?: String[] | String;
-  password_lt?: String;
-  password_lte?: String;
-  password_gt?: String;
-  password_gte?: String;
-  password_contains?: String;
-  password_not_contains?: String;
-  password_starts_with?: String;
-  password_not_starts_with?: String;
-  password_ends_with?: String;
-  password_not_ends_with?: String;
-  links_every?: LinkWhereInput;
-  links_some?: LinkWhereInput;
-  links_none?: LinkWhereInput;
-  votes_every?: VoteWhereInput;
-  votes_some?: VoteWhereInput;
-  votes_none?: VoteWhereInput;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface VoteSubscriptionWhereInput {
+export interface activitiesWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  rating?: Int;
+  rating_not?: Int;
+  rating_in?: Int[] | Int;
+  rating_not_in?: Int[] | Int;
+  rating_lt?: Int;
+  rating_lte?: Int;
+  rating_gt?: Int;
+  rating_gte?: Int;
+  comments?: String;
+  comments_not?: String;
+  comments_in?: String[] | String;
+  comments_not_in?: String[] | String;
+  comments_lt?: String;
+  comments_lte?: String;
+  comments_gt?: String;
+  comments_gte?: String;
+  comments_contains?: String;
+  comments_not_contains?: String;
+  comments_starts_with?: String;
+  comments_not_starts_with?: String;
+  comments_ends_with?: String;
+  comments_not_ends_with?: String;
+  AND?: activitiesWhereInput[] | activitiesWhereInput;
+  OR?: activitiesWhereInput[] | activitiesWhereInput;
+  NOT?: activitiesWhereInput[] | activitiesWhereInput;
+}
+
+export interface UserCreateInput {
+  id?: ID_Input;
+  name: String;
+  email: String;
+}
+
+export type activitiesWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface activitiesUpdateManyMutationInput {
+  rating?: Int;
+  comments?: String;
+}
+
+export interface UserUpdateManyMutationInput {
+  name?: String;
+  email?: String;
+}
+
+export interface activitiesSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: VoteWhereInput;
-  AND?: VoteSubscriptionWhereInput[] | VoteSubscriptionWhereInput;
-  OR?: VoteSubscriptionWhereInput[] | VoteSubscriptionWhereInput;
-  NOT?: VoteSubscriptionWhereInput[] | VoteSubscriptionWhereInput;
+  node?: activitiesWhereInput;
+  AND?: activitiesSubscriptionWhereInput[] | activitiesSubscriptionWhereInput;
+  OR?: activitiesSubscriptionWhereInput[] | activitiesSubscriptionWhereInput;
+  NOT?: activitiesSubscriptionWhereInput[] | activitiesSubscriptionWhereInput;
+}
+
+export interface activitiesUpdateInput {
+  rating?: Int;
+  comments?: String;
 }
 
 export interface NodeNode {
   id: ID_Output;
 }
 
-export interface VotePreviousValues {
-  id: ID_Output;
+export interface activitiesEdge {
+  node: activities;
+  cursor: String;
 }
 
-export interface VotePreviousValuesPromise
-  extends Promise<VotePreviousValues>,
+export interface activitiesEdgePromise
+  extends Promise<activitiesEdge>,
+    Fragmentable {
+  node: <T = activitiesPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface activitiesEdgeSubscription
+  extends Promise<AsyncIterator<activitiesEdge>>,
+    Fragmentable {
+  node: <T = activitiesSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface activitiesPreviousValues {
+  id: ID_Output;
+  rating?: Int;
+  comments: String;
+}
+
+export interface activitiesPreviousValuesPromise
+  extends Promise<activitiesPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  rating: () => Promise<Int>;
+  comments: () => Promise<String>;
 }
 
-export interface VotePreviousValuesSubscription
-  extends Promise<AsyncIterator<VotePreviousValues>>,
+export interface activitiesPreviousValuesSubscription
+  extends Promise<AsyncIterator<activitiesPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  rating: () => Promise<AsyncIterator<Int>>;
+  comments: () => Promise<AsyncIterator<String>>;
 }
 
-export interface LinkConnection {
+export interface UserConnection {
   pageInfo: PageInfo;
-  edges: LinkEdge[];
+  edges: UserEdge[];
 }
 
-export interface LinkConnectionPromise
-  extends Promise<LinkConnection>,
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<LinkEdge>>() => T;
-  aggregate: <T = AggregateLinkPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
 }
 
-export interface LinkConnectionSubscription
-  extends Promise<AsyncIterator<LinkConnection>>,
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<LinkEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateLinkSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface activitiesConnection {
+  pageInfo: PageInfo;
+  edges: activitiesEdge[];
+}
+
+export interface activitiesConnectionPromise
+  extends Promise<activitiesConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<activitiesEdge>>() => T;
+  aggregate: <T = AggregateactivitiesPromise>() => T;
+}
+
+export interface activitiesConnectionSubscription
+  extends Promise<AsyncIterator<activitiesConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<activitiesEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateactivitiesSubscription>() => T;
 }
 
 export interface UserSubscriptionPayload {
@@ -958,50 +443,10 @@ export interface UserSubscriptionPayloadSubscription
   previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
-export interface Vote {
-  id: ID_Output;
-}
-
-export interface VotePromise extends Promise<Vote>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  link: <T = LinkPromise>() => T;
-  user: <T = UserPromise>() => T;
-}
-
-export interface VoteSubscription
-  extends Promise<AsyncIterator<Vote>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  link: <T = LinkSubscription>() => T;
-  user: <T = UserSubscription>() => T;
-}
-
-export interface BlogConnection {
-  pageInfo: PageInfo;
-  edges: BlogEdge[];
-}
-
-export interface BlogConnectionPromise
-  extends Promise<BlogConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<BlogEdge>>() => T;
-  aggregate: <T = AggregateBlogPromise>() => T;
-}
-
-export interface BlogConnectionSubscription
-  extends Promise<AsyncIterator<BlogConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<BlogEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateBlogSubscription>() => T;
-}
-
 export interface UserPreviousValues {
   id: ID_Output;
   name: String;
   email: String;
-  password: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -1010,7 +455,6 @@ export interface UserPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   email: () => Promise<String>;
-  password: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -1019,397 +463,6 @@ export interface UserPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface User {
-  id: ID_Output;
-  name: String;
-  email: String;
-  password: String;
-}
-
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
-  links: <T = FragmentableArray<Link>>(args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  votes: <T = FragmentableArray<Vote>>(args?: {
-    where?: VoteWhereInput;
-    orderBy?: VoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
-  links: <T = Promise<AsyncIterator<LinkSubscription>>>(args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  votes: <T = Promise<AsyncIterator<VoteSubscription>>>(args?: {
-    where?: VoteWhereInput;
-    orderBy?: VoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface VoteEdge {
-  node: Vote;
-  cursor: String;
-}
-
-export interface VoteEdgePromise extends Promise<VoteEdge>, Fragmentable {
-  node: <T = VotePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface VoteEdgeSubscription
-  extends Promise<AsyncIterator<VoteEdge>>,
-    Fragmentable {
-  node: <T = VoteSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Link {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  description: String;
-  url: String;
-}
-
-export interface LinkPromise extends Promise<Link>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  description: () => Promise<String>;
-  url: () => Promise<String>;
-  postedBy: <T = UserPromise>() => T;
-  votes: <T = FragmentableArray<Vote>>(args?: {
-    where?: VoteWhereInput;
-    orderBy?: VoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface LinkSubscription
-  extends Promise<AsyncIterator<Link>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  description: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-  postedBy: <T = UserSubscription>() => T;
-  votes: <T = Promise<AsyncIterator<VoteSubscription>>>(args?: {
-    where?: VoteWhereInput;
-    orderBy?: VoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AggregateBlog {
-  count: Int;
-}
-
-export interface AggregateBlogPromise
-  extends Promise<AggregateBlog>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateBlogSubscription
-  extends Promise<AsyncIterator<AggregateBlog>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface Blog {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  title: String;
-  text: String;
-}
-
-export interface BlogPromise extends Promise<Blog>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  title: () => Promise<String>;
-  text: () => Promise<String>;
-}
-
-export interface BlogSubscription
-  extends Promise<AsyncIterator<Blog>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  title: () => Promise<AsyncIterator<String>>;
-  text: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateLink {
-  count: Int;
-}
-
-export interface AggregateLinkPromise
-  extends Promise<AggregateLink>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateLinkSubscription
-  extends Promise<AsyncIterator<AggregateLink>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BlogSubscriptionPayload {
-  mutation: MutationType;
-  node: Blog;
-  updatedFields: String[];
-  previousValues: BlogPreviousValues;
-}
-
-export interface BlogSubscriptionPayloadPromise
-  extends Promise<BlogSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = BlogPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = BlogPreviousValuesPromise>() => T;
-}
-
-export interface BlogSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<BlogSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = BlogSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = BlogPreviousValuesSubscription>() => T;
-}
-
-export interface VoteSubscriptionPayload {
-  mutation: MutationType;
-  node: Vote;
-  updatedFields: String[];
-  previousValues: VotePreviousValues;
-}
-
-export interface VoteSubscriptionPayloadPromise
-  extends Promise<VoteSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = VotePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = VotePreviousValuesPromise>() => T;
-}
-
-export interface VoteSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<VoteSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = VoteSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = VotePreviousValuesSubscription>() => T;
-}
-
-export interface VoteConnection {
-  pageInfo: PageInfo;
-  edges: VoteEdge[];
-}
-
-export interface VoteConnectionPromise
-  extends Promise<VoteConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<VoteEdge>>() => T;
-  aggregate: <T = AggregateVotePromise>() => T;
-}
-
-export interface VoteConnectionSubscription
-  extends Promise<AsyncIterator<VoteConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<VoteEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateVoteSubscription>() => T;
-}
-
-export interface LinkPreviousValues {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  description: String;
-  url: String;
-}
-
-export interface LinkPreviousValuesPromise
-  extends Promise<LinkPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  description: () => Promise<String>;
-  url: () => Promise<String>;
-}
-
-export interface LinkPreviousValuesSubscription
-  extends Promise<AsyncIterator<LinkPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  description: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-}
-
-export interface LinkSubscriptionPayload {
-  mutation: MutationType;
-  node: Link;
-  updatedFields: String[];
-  previousValues: LinkPreviousValues;
-}
-
-export interface LinkSubscriptionPayloadPromise
-  extends Promise<LinkSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = LinkPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = LinkPreviousValuesPromise>() => T;
-}
-
-export interface LinkSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<LinkSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = LinkSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = LinkPreviousValuesSubscription>() => T;
-}
-
-export interface BlogEdge {
-  node: Blog;
-  cursor: String;
-}
-
-export interface BlogEdgePromise extends Promise<BlogEdge>, Fragmentable {
-  node: <T = BlogPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface BlogEdgeSubscription
-  extends Promise<AsyncIterator<BlogEdge>>,
-    Fragmentable {
-  node: <T = BlogSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface BlogPreviousValues {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  title: String;
-  text: String;
-}
-
-export interface BlogPreviousValuesPromise
-  extends Promise<BlogPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  title: () => Promise<String>;
-  text: () => Promise<String>;
-}
-
-export interface BlogPreviousValuesSubscription
-  extends Promise<AsyncIterator<BlogPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  title: () => Promise<AsyncIterator<String>>;
-  text: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserEdge {
@@ -1429,83 +482,123 @@ export interface UserEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateVote {
+export interface activities {
+  id: ID_Output;
+  rating?: Int;
+  comments: String;
+}
+
+export interface activitiesPromise extends Promise<activities>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  rating: () => Promise<Int>;
+  comments: () => Promise<String>;
+}
+
+export interface activitiesSubscription
+  extends Promise<AsyncIterator<activities>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  rating: () => Promise<AsyncIterator<Int>>;
+  comments: () => Promise<AsyncIterator<String>>;
+}
+
+export interface Aggregateactivities {
   count: Int;
 }
 
-export interface AggregateVotePromise
-  extends Promise<AggregateVote>,
+export interface AggregateactivitiesPromise
+  extends Promise<Aggregateactivities>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateVoteSubscription
-  extends Promise<AsyncIterator<AggregateVote>>,
+export interface AggregateactivitiesSubscription
+  extends Promise<AsyncIterator<Aggregateactivities>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface LinkEdge {
-  node: Link;
-  cursor: String;
+export interface User {
+  id: ID_Output;
+  name: String;
+  email: String;
 }
 
-export interface LinkEdgePromise extends Promise<LinkEdge>, Fragmentable {
-  node: <T = LinkPromise>() => T;
-  cursor: () => Promise<String>;
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
 }
 
-export interface LinkEdgeSubscription
-  extends Promise<AsyncIterator<LinkEdge>>,
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
     Fragmentable {
-  node: <T = LinkSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
 }
 
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
+export interface activitiesSubscriptionPayload {
+  mutation: MutationType;
+  node: activities;
+  updatedFields: String[];
+  previousValues: activitiesPreviousValues;
 }
 
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
+export interface activitiesSubscriptionPayloadPromise
+  extends Promise<activitiesSubscriptionPayload>,
     Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
+  mutation: () => Promise<MutationType>;
+  node: <T = activitiesPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = activitiesPreviousValuesPromise>() => T;
 }
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
+export interface activitiesSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<activitiesSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = activitiesSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = activitiesPreviousValuesSubscription>() => T;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
-
-export type Long = string;
-
-/*
-DateTime scalar input type, allowing Date
-*/
-export type DateTimeInput = Date | string;
-
-/*
-DateTime scalar output type, which is always a string
-*/
-export type DateTimeOutput = string;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -1513,10 +606,17 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 export type ID_Input = string | number;
 export type ID_Output = string;
 
+export type Long = string;
+
 /*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /**
  * Model Metadata
@@ -1524,19 +624,11 @@ export type Boolean = boolean;
 
 export const models: Model[] = [
   {
-    name: "Link",
-    embedded: false
-  },
-  {
     name: "User",
     embedded: false
   },
   {
-    name: "Vote",
-    embedded: false
-  },
-  {
-    name: "Blog",
+    name: "activities",
     embedded: false
   }
 ];
