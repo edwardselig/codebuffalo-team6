@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import main from './main';
-import prefs from './prefs';
+import repeat from './repeat';
 
 const rootReducer = combineReducers({
     main,
-    prefs
+    repeat
 });
 
 export default rootReducer;

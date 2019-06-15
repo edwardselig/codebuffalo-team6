@@ -1,62 +1,67 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const { APP_SECRET, getUserId } = require('../utils')
+import { isContext } from "vm";
 
-function post(parent, args, context) {
-  return context.prisma.createLink({
-    url: args.url,
-    description: args.description,
-  })
-}
+// const bcrypt = require('bcryptjs')
+// const jwt = require('jsonwebtoken')
+// const { APP_SECRET, getUserId } = require('../utils')
 
-async function signup(parent, args, context) {
-  const password = await bcrypt.hash(args.password, 10)
-  const user = await context.prisma.createUser({ ...args, password })
+// function post(parent, args, context) {
+//   return context.prisma.createLink({
+//     url: args.url,
+//     description: args.description,
+//   })
+// }
 
-  const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
-  return {
-    token,
-    user,
-  }
-}
+// async function signup(parent, args, context) {
+//   const password = await bcrypt.hash(args.password, 10)
+//   const user = await context.prisma.createUser({ ...args, password })
 
-async function login(parent, args, context) {
-  const user = await context.prisma.user({ email: args.email })
-  if (!user) {
-    throw new Error('No such user found')
-  }
+//   const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
-  const valid = await bcrypt.compare(args.password, user.password)
-  if (!valid) {
-    throw new Error('Invalid password')
-  }
+//   return {
+//     token,
+//     user,
+//   }
+// }
 
-  return {
-    token: jwt.sign({ userId: user.id }, APP_SECRET),
-    user,
-  }
-}
+// async function login(parent, args, context) {
+//   const user = await context.prisma.user({ email: args.email })
+//   if (!user) {
+//     throw new Error('No such user found')
+//   }
 
-async function vote(parent, args, context) {
-  const userId = getUserId(context)
-  const linkExists = await context.prisma.$exists.vote({
-    user: { id: userId },
-    link: { id: args.linkId },
-  })
-  if (linkExists) {
-    throw new Error(`Already voted for link: ${args.linkId}`)
-  }
+//   const valid = await bcrypt.compare(args.password, user.password)
+//   if (!valid) {
+//     throw new Error('Invalid password')
+//   }
 
-  return context.prisma.createVote({
-    user: { connect: { id: userId } },
-    link: { connect: { id: args.linkId } },
-  })
+//   return {
+//     token: jwt.sign({ userId: user.id }, APP_SECRET),
+//     user,
+//   }
+// }
+
+// async function vote(parent, args, context) {
+//   const userId = getUserId(context)
+//   const linkExists = await context.prisma.$exists.vote({
+//     user: { id: userId },
+//     link: { id: args.linkId },
+//   })
+//   if (linkExists) {
+//     throw new Error(`Already voted for link: ${args.linkId}`)
+//   }
+
+//   return context.prisma.createVote({
+//     user: { connect: { id: userId } },
+//     link: { connect: { id: args.linkId } },
+//   })
+// }
+
+//input email and name
+async function signup(){
+    const user = await context.prisma.createUser();
 }
 
 module.exports = {
-  post,
-  signup,
-  login,
-  vote,
+    signup
 }
