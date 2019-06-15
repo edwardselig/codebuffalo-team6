@@ -1,12 +1,11 @@
 type Query {
-	getUser: [User!]!
+	getUsers: [User!]
 	getActivities: [Activities]
 	getFriends: [Friends]
 }
 
 input User_info {
 	name: String!
-	password: String!
 	email: String!
 }
 
@@ -32,7 +31,7 @@ type Preference {
 }
 
 type Activities {
-	activity_id: ID
+	activity_id: ID!
 	userID(id: ID!): User
 	rating: Int
 	comments: String
@@ -44,5 +43,6 @@ type Friends {
 }
 
 type Mutation {
-	createUser(input: User_info): User
+	createUser(input: User_info!): User!
 }
+
