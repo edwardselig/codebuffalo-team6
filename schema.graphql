@@ -1,0 +1,42 @@
+type Query {
+  getUsers: [User!]
+  getActivities: [Activities]
+  getFriends: [Friends]
+}
+
+type User {
+  ID: ID!
+  name: String!
+  email: String!
+  points: Int
+  pref: [Preference!]
+}
+
+type Preference {
+  userID(id: ID!): User
+  diy: Int
+  education: Int
+  recreational: Int
+  social: Int
+  charity: Int
+  cooking: Int
+  relaxation: Int
+  music: Int
+  busywork: Int
+}
+
+type Activities {
+  activity_id: ID!
+  userID(id: ID!): User
+  rating: Int
+  comments: String
+}
+
+type Friends {
+  userID(id: ID!): User
+  friend_id(id: ID!): User
+}
+
+type Mutation {
+  createUser(name: String!, email: String!): User!
+}
