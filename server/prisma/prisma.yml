@@ -1,6 +1,6 @@
 # Specifies the HTTP endpoint of your Prisma API.
 #endpoint: ''
-endpoint: https://us1.prisma.sh/edwardrselig/tutorial/tutorial
+endpoint: 74.77.1.118:4000
 
 # Defines your models, each model is mapped to the database as a table.
 datamodel: datamodel.prisma

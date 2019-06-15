@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import ExampleComponent from './ExampleComponent';
+import Toolbar from './Toolbar.jsx';
+import '../styles/main.css';
 
 class App extends Component {
     render() {
@@ -23,12 +24,8 @@ class App extends Component {
     )
     */
         return (
-            <div className="center w85">
-                <div className="ph3 pv1 background-gray">
-                    <Switch>
-                        <Route exact path="/" component={ExampleComponent} />
-                    </Switch>
-                </div>
+            <div>
+                <Toolbar>/</Toolbar>
             </div>
         );
     }
