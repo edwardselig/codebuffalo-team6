@@ -1,80 +1,47 @@
-scalar DateTime
-
 type Query {
-  info: String!
-  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
-  getBlogs: BlogFeed!
+	getUsers: [User!]
+	getActivities: [Activities]
+	getFriends: [Friends]
 }
 
-enum LinkOrderByInput {
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-enum BlogOrderByInput {
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type Feed {
-  links: [Link!]!
-  count: Int!
-}
-
-type Mutation {
-  post(url: String!, description: String!): Link!
-  signup(email: String!, password: String!, name: String!): AuthPayload
-  login(email: String!, password: String!): AuthPayload
-  vote(linkId: ID!): Vote!
-}
-
-type Subscription {
-  newLink: Link
-  newVote: Vote
-}
-
-type AuthPayload {
-  token: String
-  user: User
+input User_info {
+	name: String!
+	email: String!
 }
 
 type User {
-  id: ID!
-  name: String!
-  email: String!
-  links: [Link!]!
+	ID: ID!
+	name: String!
+	email: String!
+	points: Int
+	pref: [Preference!]
 }
 
-type Link {
-  id: ID!
-  createdAt: DateTime!
-  description: String!
-  url: String!
-  postedBy: User
-  votes: [Vote!]!
+type Preference {
+	userID(id: ID!): User
+	diy: Int
+	education: Int
+	recreational: Int
+	social: Int
+	charity: Int
+	cooking: Int
+	relaxation: Int
+	music: Int
+	busywork: Int
 }
 
-type Vote {
-  id: ID!
-  link: Link!
-  user: User!
+type Activities {
+	activity_id: ID!
+	userID(id: ID!): User
+	rating: Int
+	comments: String
 }
 
-type Blog {
-  id: ID!
-  createdAt: DateTime!
-  title: String!
-  text: String!
+type Friends {
+	userID(id: ID!): User
+	friend_id(id: ID!): User
 }
 
-type BlogFeed {
-  blogs: [Blog!]!
+type Mutation {
+	createUser(input: User_info!): User!
 }
