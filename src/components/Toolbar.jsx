@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import ActivityChooser from './ActivityChooser';
+import octopus from '../svg/octopus.svg';
 
 function TabContainer(props) {
     return (
@@ -50,7 +51,7 @@ export default function ScrollableTabsButtonPrevent() {
                         scrollButtons="off"
                     >
                         <Tab icon={<PersonPinIcon />} aria-label="Profile" />
-                        <Tab icon={<DirectionsRunIcon />} aria-label="Daily Activities" />
+                        <Tab icon={<img src={octopus} />} aria-label="Daily Activities" />
                         <Tab icon={<ExitToAppIcon />} aria-label="Logout" />
                     </Tabs>
                 </AppBar>

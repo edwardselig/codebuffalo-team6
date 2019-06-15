@@ -13,13 +13,22 @@ html, body {
 }
 
 .tabs {
-    background-color:#ad9764
+    background-color:#07516c
 }
 
 .centerTaco{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 40%;
+}
+
+.centerOctopus{
+    display: block;
+    margin-left: 25%;
+    margin-right: 50%;
+    margin-top: 50%;
+    transform: translate(0%, -50%);
     width: 40%;
 }
 

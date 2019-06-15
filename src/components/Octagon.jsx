@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LineTo from 'react-lineto';
 import TacoButton from './TacoButton';
+import bigoctopus from '../svg/bigoctopus.svg';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -44,6 +45,17 @@ export default function NestedGrid() {
                 </Grid>
                 <Grid justify="center" alignItems="center" item xs={3}>
                     <TacoButton />
+                </Grid>
+                <Grid justify="center" alignItems="center" item xs={3}></Grid>
+            </React.Fragment>
+        );
+    }
+    function RowMiddle() {
+        return (
+            <React.Fragment>
+                <Grid justify="center" alignItems="center" item xs={3}></Grid>
+                <Grid justify="center" alignItems="center" item xs={6}>
+                    <img src={bigoctopus}></img>
                 </Grid>
                 <Grid justify="center" alignItems="center" item xs={3}></Grid>
             </React.Fragment>

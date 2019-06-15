@@ -5,6 +5,10 @@ const style = {
     margin: 12
 };
 
-const TacoButton = () => <img className="centerTaco" src={taco} />;
+const TacoButton = () => <img onClick={tacoClick} className="centerTaco" src={taco} />;
+
+const tacoClick = () => {
+    console.log('taco-click');
+};
 
 export default TacoButton;
