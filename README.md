@@ -1,3 +1,5 @@
+If you're a code buffalo judge looking at this, please don't waste time judging this because we didn't finish.
+
 server folder is backend
 src is front end
 
